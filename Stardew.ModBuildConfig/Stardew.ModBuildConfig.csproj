@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets/3.7.56">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Linkoid.$(AssemblyName)</PackageId>
+    <Authors>linkoid</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix>rc.0</VersionSuffix>
+    <Description>An SDK that automates the build configuration for crossplatform Stardew Valley SMAPI mods. For SMAPI 3.13.0 or later.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1">
+      <IncludeAssets>None</IncludeAssets>
+      <PrivateAssets>All</PrivateAssets>
+      <GeneratePathProperty>true</GeneratePathProperty>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <ReferencePath>$(PkgPathoschild_Stardew_ModBuildConfig)\build\</ReferencePath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="$(PkgPathoschild_Stardew_ModBuildConfig)\build\*.dll" Private="true" Pack="true" PackagePath="build\" />
+    <Content Include="$(PkgPathoschild_Stardew_ModBuildConfig)\analyzers\dotnet\cs\*.dll" Private="true" Pack="true" PackagePath="analyzers\dotnet\cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Sdk\*.props;Sdk\*.targets" Pack="true" PackagePath="sdk\" />
+    <Content Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <Target Name="PublishLocal" DependsOnTargets="Pack" AfterTargets="Pack" Inputs="@(NuGetPackOutput)" Outputs="%USERPROFILE%\.nuget\packages\$(PackageId)\**\*" Returns="@(_TargetPackage)">
+    <PropertyGroup>
+      <PackagePath>@(NuGetPackOutput-&gt;WithMetadataValue('Extension', '.nupkg'))</PackagePath>
+      <PackageSource>%USERPROFILE%\.nuget\packages</PackageSource>
+    </PropertyGroup>
+    <Exec Command="NuGet delete $(PackageId) $(PackageVersion) -Source $(PackageSource) -NonInteractive" ContinueOnError="true" />
+    <Exec Command="NuGet add $(PackagePath) -Source $(PackageSource) -Expand -NonInteractive" />
+    <ItemGroup>
+      <_TargetPackage Include="$(PackageId)" Version="$(PackageVersion)" />
+    </ItemGroup>
+  </Target>
+
+</Project>

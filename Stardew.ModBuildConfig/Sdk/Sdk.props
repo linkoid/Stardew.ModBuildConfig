@@ -1,0 +1,56 @@
+﻿<!--
+This file is from Pathoschild/SMAPI. You can compare with the original file below to see the modifications.
+https://github.com/Pathoschild/SMAPI/blob/develop/src/SMAPI.ModBuildConfig/build/smapi.targets
+
+Copyright (c) 2022 Pathoschild, linkoid
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="FindGameFolder.props" Condition="'$(GamePath)' == ''" />
+  <Import Project="DeployModTask.props" Condition="'$(_ImportedDeployModTaskProps)' == ''" />
+
+  <!--*********************************************
+  ** Set build options
+  **********************************************-->
+  <PropertyGroup>
+    <!-- enable line numbers in stack traces (needs to embedded for Linux/macOS: https://github.com/dotnet/runtime/issues/39987) -->
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
+
+    <!-- don't create the 'refs' folder (which isn't useful for mods) -->
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+
+    <!-- suppress processor architecture mismatch warning (mods should be compiled in 'Any CPU' so they work in both 32-bit and 64-bit mode) -->
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+
+    <!-- set this to empty to see if it was manually assigned later -->
+    <CopyLocalLockFileAssemblies></CopyLocalLockFileAssemblies>
+
+    <!-- allow 'right-click project > add > assembly reference' -->
+    <AssemblyReferenceTabs>TAB_ASSEMBLY_EXTENSIONS</AssemblyReferenceTabs>
+  </PropertyGroup>
+
+  <!-- set default package options -->
+  <PropertyGroup>
+    <ModFolderName>$(MSBuildProjectName)</ModFolderName>
+    <EnableModDeploy>true</EnableModDeploy>
+    <EnableModZip>true</EnableModZip>
+    <EnableHarmony>false</EnableHarmony>
+    <EnableGameDebugging>true</EnableGameDebugging>
+    <BundleExtraAssemblies></BundleExtraAssemblies>
+  </PropertyGroup>
+
+</Project>

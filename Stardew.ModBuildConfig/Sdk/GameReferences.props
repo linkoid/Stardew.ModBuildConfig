@@ -1,0 +1,55 @@
+﻿<!--
+This file is from Pathoschild/SMAPI. You can compare with the original file below to see the modifications.
+https://github.com/Pathoschild/SMAPI/blob/develop/src/SMAPI.ModBuildConfig/build/smapi.targets
+
+Copyright (c) 2022 Pathoschild, linkoid
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="FindGameFolder.props" Condition="'$(GamePath)' == ''" />
+  
+  <PropertyGroup>
+    <_ImportedGameReferencesProps>true</_ImportedGameReferencesProps>
+    <!-- simplify conditions -->
+    <_BundleExtraAssembliesForGame>$([System.Text.RegularExpressions.Regex]::IsMatch('$(BundleExtraAssemblies)', '\bGame|All\b', RegexOptions.IgnoreCase))</_BundleExtraAssembliesForGame>
+  </PropertyGroup>
+  
+  <!--*********************************************
+  ** Add assembly references
+  **********************************************-->
+  
+  <PropertyGroup Condition="Exists($(GamePath))">
+    <!-- add certain game folders to AssemblyFolders so explicit hint paths aren't necessary -->
+    <AssemblySearchPaths>$(AssemblySearchPaths);$(GamePath)\smapi-internal</AssemblySearchPaths>
+    <AssemblySearchPaths>$(AssemblySearchPaths);$(GamePath)\Mods</AssemblySearchPaths>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <!-- game -->
+    <Reference Include="Stardew Valley" HintPath="$(GamePath)\Stardew Valley.dll" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="StardewValley.GameData" HintPath="$(GamePath)\StardewValley.GameData.dll" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="MonoGame.Framework" HintPath="$(GamePath)\MonoGame.Framework.dll" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="xTile" HintPath="$(GamePath)\xTile.dll" Private="$(_BundleExtraAssembliesForGame)" />
+
+    <!-- SMAPI -->
+    <Reference Include="StardewModdingAPI" HintPath="$(GamePath)\StardewModdingAPI.dll" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="SMAPI.Toolkit.CoreInterfaces" Private="$(_BundleExtraAssembliesForGame)" />
+
+    <!-- Harmony -->
+    <Reference Include="0Harmony" Condition="'$(EnableHarmony)' == 'true'" Private="$(_BundleExtraAssembliesForGame)" />
+  </ItemGroup>
+
+</Project>
