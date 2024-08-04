@@ -6,11 +6,12 @@
     <Authors>linkoid</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>rc.0</VersionSuffix>
+    <VersionSuffix>rc.1</VersionSuffix>
     <Description>An SDK that automates the build configuration for crossplatform Stardew Valley SMAPI mods. For SMAPI 3.13.0 or later.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl></RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageType>MSBuildSdk</PackageType>
   </PropertyGroup>
 
   <ItemGroup>
