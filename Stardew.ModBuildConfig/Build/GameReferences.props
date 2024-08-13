@@ -32,20 +32,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   **********************************************-->
   
   <PropertyGroup Condition="Exists($(GamePath))">
-    <!-- add certain game folders to AssemblyFolders so explicit hint paths aren't necessary -->
+    <!-- add certain game folders to AssemblySearchPaths so explicit hint paths aren't necessary -->
+    <AssemblySearchPaths>$(AssemblySearchPaths);$(GamePath)</AssemblySearchPaths>
     <AssemblySearchPaths>$(AssemblySearchPaths);$(GamePath)\smapi-internal</AssemblySearchPaths>
-    <AssemblySearchPaths>$(AssemblySearchPaths);$(GamePath)\Mods</AssemblySearchPaths>
   </PropertyGroup>
   
   <ItemGroup>
     <!-- game -->
-    <Reference Include="Stardew Valley" HintPath="$(GamePath)\Stardew Valley.dll" Private="$(_BundleExtraAssembliesForGame)" />
-    <Reference Include="StardewValley.GameData" HintPath="$(GamePath)\StardewValley.GameData.dll" Private="$(_BundleExtraAssembliesForGame)" />
-    <Reference Include="MonoGame.Framework" HintPath="$(GamePath)\MonoGame.Framework.dll" Private="$(_BundleExtraAssembliesForGame)" />
-    <Reference Include="xTile" HintPath="$(GamePath)\xTile.dll" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="Stardew Valley" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="StardewValley.GameData" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="MonoGame.Framework" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="xTile" Private="$(_BundleExtraAssembliesForGame)" />
 
     <!-- SMAPI -->
-    <Reference Include="StardewModdingAPI" HintPath="$(GamePath)\StardewModdingAPI.dll" Private="$(_BundleExtraAssembliesForGame)" />
+    <Reference Include="StardewModdingAPI" Private="$(_BundleExtraAssembliesForGame)" />
     <Reference Include="SMAPI.Toolkit.CoreInterfaces" Private="$(_BundleExtraAssembliesForGame)" />
 
     <!-- Harmony -->

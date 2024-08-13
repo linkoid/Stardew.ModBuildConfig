@@ -19,13 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
   <Import Project="GameReferences.props" Condition="'$(_ImportedGameReferencesProps)' != 'true'"/>
 
-  <ItemGroup>
-    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1" KeepDuplicates="false">
-      <IncludeAssets>Analyzers</IncludeAssets>
+  <!--<ItemGroup>
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1">
+      <IncludeAssets>analyzers</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
+  </ItemGroup>-->
 
   <!-- set default package options that are dependent on project properties -->
   <PropertyGroup>

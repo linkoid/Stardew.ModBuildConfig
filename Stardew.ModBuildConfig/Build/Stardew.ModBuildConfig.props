@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
   <Import Project="FindGameFolder.props" Condition="'$(GamePath)' == ''" />
   <Import Project="DeployModTask.props" Condition="'$(_ImportedDeployModTaskProps)' == ''" />
 

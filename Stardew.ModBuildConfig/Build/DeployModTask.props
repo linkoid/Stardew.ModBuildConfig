@@ -2,5 +2,5 @@
   <PropertyGroup>
     <_ImportedDeployModTaskProps>true</_ImportedDeployModTaskProps>
   </PropertyGroup>
-	<UsingTask TaskName="DeployModTask" AssemblyFile="../build/SMAPI.ModBuildConfig.dll" />
+	<UsingTask TaskName="DeployModTask" AssemblyFile="SMAPI.ModBuildConfig.dll" />
 </Project>
